@@ -5,18 +5,18 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kdesdk-kioslaves
-Version  : 18.08.0
-Release  : 1
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kdesdk-kioslaves-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kdesdk-kioslaves-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kdesdk-kioslaves-18.08.0.tar.xz.sig
+Version  : 18.12.2
+Release  : 2
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kdesdk-kioslaves-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kdesdk-kioslaves-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kdesdk-kioslaves-18.12.2.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
-Requires: kdesdk-kioslaves-lib
-Requires: kdesdk-kioslaves-license
-Requires: kdesdk-kioslaves-data
-Requires: kdesdk-kioslaves-locales
+Requires: kdesdk-kioslaves-data = %{version}-%{release}
+Requires: kdesdk-kioslaves-lib = %{version}-%{release}
+Requires: kdesdk-kioslaves-license = %{version}-%{release}
+Requires: kdesdk-kioslaves-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : perl
@@ -36,8 +36,8 @@ data components for the kdesdk-kioslaves package.
 %package lib
 Summary: lib components for the kdesdk-kioslaves package.
 Group: Libraries
-Requires: kdesdk-kioslaves-data
-Requires: kdesdk-kioslaves-license
+Requires: kdesdk-kioslaves-data = %{version}-%{release}
+Requires: kdesdk-kioslaves-license = %{version}-%{release}
 
 %description lib
 lib components for the kdesdk-kioslaves package.
@@ -60,26 +60,26 @@ locales components for the kdesdk-kioslaves package.
 
 
 %prep
-%setup -q -n kdesdk-kioslaves-18.08.0
+%setup -q -n kdesdk-kioslaves-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535196689
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549865481
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535196689
+export SOURCE_DATE_EPOCH=1549865481
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kdesdk-kioslaves
-cp COPYING %{buildroot}/usr/share/doc/kdesdk-kioslaves/COPYING
-cp perldoc/COPYING %{buildroot}/usr/share/doc/kdesdk-kioslaves/perldoc_COPYING
+mkdir -p %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves
+cp COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/COPYING
+cp perldoc/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/perldoc_COPYING
 pushd clr-build
 %make_install
 popd
@@ -97,9 +97,9 @@ popd
 /usr/lib64/qt5/plugins/kf5/kio/perldoc.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kdesdk-kioslaves/COPYING
-/usr/share/doc/kdesdk-kioslaves/perldoc_COPYING
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kdesdk-kioslaves/COPYING
+/usr/share/package-licenses/kdesdk-kioslaves/perldoc_COPYING
 
 %files locales -f kio5_perldoc.lang
 %defattr(-,root,root,-)
