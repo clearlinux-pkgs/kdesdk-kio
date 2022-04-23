@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kdesdk-kioslaves
-Version  : 21.12.3
-Release  : 37
-URL      : https://download.kde.org/stable/release-service/21.12.3/src/kdesdk-kioslaves-21.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/21.12.3/src/kdesdk-kioslaves-21.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/21.12.3/src/kdesdk-kioslaves-21.12.3.tar.xz.sig
+Version  : 22.04.0
+Release  : 38
+URL      : https://download.kde.org/stable/release-service/22.04.0/src/kdesdk-kioslaves-22.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/22.04.0/src/kdesdk-kioslaves-22.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/22.04.0/src/kdesdk-kioslaves-22.04.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0
@@ -61,15 +61,15 @@ locales components for the kdesdk-kioslaves package.
 
 
 %prep
-%setup -q -n kdesdk-kioslaves-21.12.3
-cd %{_builddir}/kdesdk-kioslaves-21.12.3
+%setup -q -n kdesdk-kioslaves-22.04.0
+cd %{_builddir}/kdesdk-kioslaves-22.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1646543627
+export SOURCE_DATE_EPOCH=1650675715
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -85,11 +85,11 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1646543627
+export SOURCE_DATE_EPOCH=1650675715
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves
-cp %{_builddir}/kdesdk-kioslaves-21.12.3/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/a21ac62aee75f8fcb26b1de6fc90e5eea271854c
-cp %{_builddir}/kdesdk-kioslaves-21.12.3/perldoc/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/d6458d52bfead6f1399b865f1aeea0caa639ef6c
+cp %{_builddir}/kdesdk-kioslaves-22.04.0/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/a21ac62aee75f8fcb26b1de6fc90e5eea271854c
+cp %{_builddir}/kdesdk-kioslaves-22.04.0/perldoc/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/d6458d52bfead6f1399b865f1aeea0caa639ef6c
 pushd clr-build
 %make_install
 popd
