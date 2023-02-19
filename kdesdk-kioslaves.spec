@@ -6,7 +6,7 @@
 #
 Name     : kdesdk-kioslaves
 Version  : 22.04.3
-Release  : 41
+Release  : 42
 URL      : https://download.kde.org/stable/release-service/22.04.3/src/kdesdk-kioslaves-22.04.3.tar.xz
 Source0  : https://download.kde.org/stable/release-service/22.04.3/src/kdesdk-kioslaves-22.04.3.tar.xz
 Source1  : https://download.kde.org/stable/release-service/22.04.3/src/kdesdk-kioslaves-22.04.3.tar.xz.sig
@@ -21,6 +21,9 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
 BuildRequires : extra-cmake-modules-data
 BuildRequires : perl
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 kio_perldoc - A kioslave interface to the imbedded Perl documentation.
@@ -69,27 +72,27 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657578306
+export SOURCE_DATE_EPOCH=1676840821
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1657578306
+export SOURCE_DATE_EPOCH=1676840821
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves
-cp %{_builddir}/kdesdk-kioslaves-22.04.3/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/a21ac62aee75f8fcb26b1de6fc90e5eea271854c
-cp %{_builddir}/kdesdk-kioslaves-22.04.3/perldoc/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/d6458d52bfead6f1399b865f1aeea0caa639ef6c
+cp %{_builddir}/kdesdk-kioslaves-%{version}/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/a21ac62aee75f8fcb26b1de6fc90e5eea271854c || :
+cp %{_builddir}/kdesdk-kioslaves-%{version}/perldoc/COPYING %{buildroot}/usr/share/package-licenses/kdesdk-kioslaves/d6458d52bfead6f1399b865f1aeea0caa639ef6c || :
 pushd clr-build
 %make_install
 popd
